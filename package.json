@@ -1,0 +1,31 @@
+{
+  "name": "bmf",
+  "version": "0.1.0",
+  "description": "simple file backer-upper",
+  "main": "main.js",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "progress": "^1.1.8"
+  },
+  "optionalDependencies": {
+    "xxhash": "^0.2.4",
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevnorris/backup-my-files.git"
+  },
+  "keywords": [
+    "files",
+    "backup"
+  ],
+  "author": "Trevor Norris <trev.norris@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trevnorris/backup-my-files/issues"
+  },
+  "homepage": "https://github.com/trevnorris/backup-my-files#readme.md"
+}
