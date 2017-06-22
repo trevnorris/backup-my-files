@@ -5,37 +5,49 @@ const path = require('path');
 const sep = path.sep;
 const print = process._rawDebug;
 
-// Usage:
-//  backup-my-files [options] SRC DEST
-//  -v, --verbose         increase verbosity
-//  -r, --recursive       recurse into directories
-//  -c, --checksum        skip files based on checksum or generate hash for
-//                        files when using --only-scan
-//  -u, --update          skip files that are newer on the receiver
-//  -t, --ctime           skip files that have newer ctime.
-//  -p, --perms           preserve permissions
-//  -x, --xxhash64        use 64 bit xxhash instead of sha1 for checksum
-//                        (requires setting --checksum)
-//  -y, --xxhash32        use 32 bit xxhash instead of sha1 for checksum
-//                        (requires setting --checksum)
-//  -s, --only-scan       only scan SRC and generate file informaion; DEST
-//                        is ignored
-//  -o, --output=FILE     file destination for file data, default stdout
-//                        if set for SRC to DEST copy then the JSON data will
-//                        still be generated and written to disk
-//  -b, --buf-size=NUM    size of buffer in bytes to read in files when
-//                        generating sha1, default 32MB
-//  -i, --include-hidden  include hidden files in scan
-//  -t, --status-bar      display status bar while generating hashes; make sure
-//                        to use --output of using this option
-//  -e, --verify=FILE     use JSON FILE to verify files in SRC
-//                        TODO(trevnorris): Implement this
+const help_txt =
+`Usage:
+  backup-my-files [options] SRC DEST
+
+Options:
+  -v, --verbose         increase verbosity
+  -r, --recursive       recurse into directories
+  -c, --checksum        skip files based on checksum or generate hash for
+                        files when using --only-scan
+  -u, --update          skip files that are newer on the receiver
+  -t, --ctime           skip files that have newer ctime.
+  -p, --perms           preserve permissions
+  -x, --xxhash64        use 64 bit xxhash instead of sha1 for checksum
+                        (requires setting --checksum)
+  -y, --xxhash32        use 32 bit xxhash instead of sha1 for checksum
+                        (requires setting --checksum)
+  -s, --only-scan       only scan SRC and generate file informaion; DEST
+                        is ignored
+  -o, --output=FILE     file destination for file data, default stdout
+                        if set for SRC to DEST copy then the JSON data will
+                        still be generated and written to disk
+  -b, --buf-size=NUM    size of buffer in bytes to read in files when
+                        generating sha1, default 32MB
+  -i, --include-hidden  include hidden files in scan
+  -t, --status-bar      display status bar while generating hashes; make sure
+                        to use --output of using this option
+  -e, --verify=FILE     use JSON FILE to verify files in SRC
+                        TODO(trevnorris): Implement this
+  -h, --help            Print this help message
+`;
+
 const argv = require('minimist')(process.argv.slice(2), {
   boolean: ['v', 'verbose', 'r', 'recursive', 'c', 'checksum', 'u', 'update',
             't', 'ctime', 'p', 'perms', 'x', 'xxhash64', 'y', 'xxhash32',
             's', 'only-scan', 'g', 'gen-hash', 'i', 'include-hidden',
-            't', 'status-bar']
+            't', 'status-bar', 'h', 'help']
 });
+
+if (argv['help'] || argv.h || process.argv.length <= 2) {
+  fs.writeSync(1, help_txt);
+  process.exit();
+}
+
 const verbose = !!(argv['verbose'] || argv.v);
 const recursive = !!(argv['recursive'] || argv.r);
 const checksum = !!(argv['checksum'] || argv.c);
