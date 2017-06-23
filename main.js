@@ -208,7 +208,7 @@ function genFilesList(path, files_obj) {
 
   for (let file of file_list) {
     // Skip hidden files.
-    if (file.charAt(0) === '.')
+    if (file.charAt(0) === '.' && !include_hidden)
       continue;
 
     const stats = fs.lstatSync(path + sep + file);
