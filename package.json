@@ -8,7 +8,7 @@
     "progress": "^1.1.8"
   },
   "optionalDependencies": {
-    "xxhash": "^0.2.4",
+    "xxhash": "^0.2.4"
   },
   "devDependencies": {},
   "scripts": {
